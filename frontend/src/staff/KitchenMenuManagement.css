@@ -1,0 +1,194 @@
+.kitchen-page .kitchen-add-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+}
+
+.kitchen-add-form--categories {
+  margin-bottom: 1rem;
+}
+
+.kitchen-categories-table {
+  margin-bottom: 2.5rem;
+}
+
+.kitchen-category-select {
+  max-width: 14rem;
+}
+
+.kitchen-field select {
+  min-width: 10rem;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.kitchen-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+}
+
+.kitchen-field input {
+  min-width: 10rem;
+  padding: 0.45rem 0.5rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+}
+
+.kitchen-field--wide {
+  flex: 1 1 200px;
+}
+
+.kitchen-field--wide input {
+  min-width: 100%;
+}
+
+.kitchen-add-btn {
+  align-self: flex-end;
+}
+
+.kitchen-desc {
+  font-size: 0.8rem;
+  opacity: 0.75;
+  margin-top: 0.2rem;
+}
+
+.kitchen-order-lines {
+  margin: 0;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+}
+
+.kitchen-orders-table {
+  overflow-x: auto;
+}
+
+.kitchen-photos-cell {
+  vertical-align: top;
+  min-width: 8.5rem;
+}
+
+.kitchen-food-photo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.4rem;
+}
+
+.kitchen-food-thumb-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.kitchen-food-thumb-img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.kitchen-food-thumb-del {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 1.35rem;
+  height: 1.35rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #8b3a3a;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.kitchen-food-thumb-del:hover {
+  filter: brightness(1.1);
+}
+
+.kitchen-food-upload-label {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+.kitchen-food-upload-label input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.kitchen-food-upload-btn {
+  pointer-events: none;
+  font-size: 0.65rem;
+  padding: 0.35rem 0.55rem;
+}
+
+.kitchen-row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.kitchen-edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 250;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.kitchen-edit-modal {
+  width: min(38rem, 100%);
+  background: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.kitchen-edit-title {
+  margin: 0 0 0.75rem;
+}
+
+.kitchen-edit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+.kitchen-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.kitchen-edit-actions {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+@media (max-width: 700px) {
+  .kitchen-edit-grid {
+    grid-template-columns: 1fr;
+  }
+}

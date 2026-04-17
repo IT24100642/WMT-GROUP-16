@@ -1,0 +1,34 @@
+/* Maison Velour — same palette as landing (LandingPage.css) */
+:root {
+  --mv-cream: #f5f0e8;
+  --mv-cream-muted: #d4c4b0;
+  --mv-charcoal: #1a1714;
+  --mv-warm-dark: #2c2620;
+  --mv-accent: #8b6f5e;
+  --mv-gold: #c9a962;
+
+  --mv-bg: var(--mv-charcoal);
+  --mv-bg-raised: var(--mv-warm-dark);
+  --mv-bg-elevated: var(--mv-warm-dark);
+
+  --mv-cream-75: rgba(245, 240, 232, 0.75);
+  --mv-cream-55: rgba(245, 240, 232, 0.55);
+  --mv-cream-12: rgba(245, 240, 232, 0.12);
+  --mv-cream-10: rgba(245, 240, 232, 0.1);
+  --mv-cream-08: rgba(245, 240, 232, 0.08);
+  --mv-cream-06: rgba(245, 240, 232, 0.06);
+
+  --mv-gold-50: rgba(201, 169, 98, 0.5);
+  --mv-gold-15: rgba(201, 169, 98, 0.15);
+  --mv-gold-12: rgba(201, 169, 98, 0.12);
+  --mv-hero-glow: rgba(201, 169, 98, 0.14);
+
+  --mv-border: rgba(245, 240, 232, 0.08);
+
+  --mv-danger: #c17c74;
+  --mv-danger-soft: #e8a598;
+  --mv-success: #9ab88a;
+
+  --mv-font-serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --mv-font-ui: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}

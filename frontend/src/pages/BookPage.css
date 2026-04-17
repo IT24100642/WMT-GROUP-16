@@ -1,0 +1,142 @@
+.book-page-main {
+  padding-bottom: 3rem;
+}
+
+.book-page-main h1 {
+  margin: 0 0 1.25rem;
+}
+
+.book-page-summary {
+  margin: 0 0 1rem;
+}
+
+.book-page-lead {
+  margin: 0;
+  line-height: 1.65;
+  font-size: 1.05rem;
+}
+
+.book-page-food-return {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  max-width: 36rem;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(154, 184, 138, 0.4);
+  background: rgba(154, 184, 138, 0.14);
+  color: #f5f0e8;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.book-page-food-return-dismiss {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(245, 240, 232, 0.25);
+  background: transparent;
+  color: #e8d4a8;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.book-page-food-return-dismiss:hover {
+  border-color: rgba(245, 240, 232, 0.45);
+}
+
+.book-page-note {
+  max-width: 36rem;
+  line-height: 1.65;
+}
+
+.book-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.book-page-actions .res-cta {
+  margin-top: 0;
+}
+
+.book-page-account {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin: 0 0 1.25rem;
+  padding: 0.85rem 1rem;
+  background: rgba(245, 240, 232, 0.06);
+  border: 1px solid rgba(201, 169, 98, 0.25);
+  border-radius: 8px;
+}
+
+.book-page-account-line {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  flex: 1 1 auto;
+}
+
+.book-page-guest-id {
+  color: #c9a962;
+  font-weight: 600;
+}
+
+.book-page-signout {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid rgba(245, 240, 232, 0.2);
+  background: transparent;
+  color: #d4c4b0;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.book-page-signout:hover {
+  color: #f5f0e8;
+  border-color: rgba(245, 240, 232, 0.35);
+}
+
+.book-page-success {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem 1.35rem;
+  background: rgba(154, 184, 138, 0.12);
+  border: 1px solid rgba(154, 184, 138, 0.35);
+  border-radius: 8px;
+  max-width: 36rem;
+}
+
+.book-page-success .book-page-lead {
+  margin: 0 0 1rem;
+}
+
+.book-page-success a {
+  color: #c9a962;
+  font-weight: 600;
+}
+
+.book-page-reopen {
+  background: none;
+  border: none;
+  padding: 0;
+  color: #c9a962;
+  text-decoration: underline;
+  cursor: pointer;
+  font: inherit;
+}
+
+.book-page-reopen:hover {
+  color: #e8d4a8;
+}

@@ -1,0 +1,240 @@
+.receptionist-bookings-page .table-wrap {
+  width: 100%;
+}
+
+.receptionist-bookings-page .data-table {
+  width: 100%;
+  table-layout: auto;
+}
+
+.receptionist-bookings-summary-line {
+  line-height: 1.35;
+}
+
+.receptionist-bookings-special {
+  margin-top: 0.55rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--mv-cream-12);
+  max-width: min(28rem, 100%);
+}
+
+.receptionist-bookings-special-label {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mv-gold);
+  margin-bottom: 0.25rem;
+}
+
+.receptionist-bookings-special-text {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--mv-cream);
+  opacity: 0.92;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.receptionist-bookings-meta {
+  font-size: 0.78rem;
+  opacity: 0.75;
+  margin-top: 0.15rem;
+}
+
+.receptionist-bookings-desk-cell {
+  min-width: 14rem;
+  width: 16%;
+  vertical-align: top;
+}
+
+.receptionist-desk {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: stretch;
+}
+
+.receptionist-desk-muted {
+  opacity: 0.45;
+  font-size: 0.85rem;
+}
+
+.receptionist-desk-label {
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mv-cream-55);
+}
+
+.receptionist-desk-label--spaced {
+  margin-top: 0.35rem;
+}
+
+.receptionist-desk-input {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0.35rem 0.45rem;
+  border-radius: 4px;
+  border: 1px solid var(--mv-cream-12);
+  background: var(--mv-bg-raised);
+  color: var(--mv-cream);
+  font-size: 0.75rem;
+  font-family: inherit;
+}
+
+.receptionist-desk-input:focus {
+  outline: 2px solid rgba(201, 169, 98, 0.45);
+  outline-offset: 1px;
+}
+
+.receptionist-desk-input:disabled {
+  opacity: 0.5;
+}
+
+.receptionist-desk-btn {
+  padding: 0.45rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+  border: 1px solid transparent;
+}
+
+.receptionist-desk-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.receptionist-desk-btn--primary {
+  background: rgba(201, 169, 98, 0.28);
+  border-color: rgba(201, 169, 98, 0.5);
+  color: #f5e6c8;
+}
+
+.receptionist-desk-btn--primary:hover:not(:disabled) {
+  background: rgba(201, 169, 98, 0.38);
+}
+
+.receptionist-desk-btn--ghost {
+  background: transparent;
+  border-color: var(--mv-cream-12);
+  color: var(--mv-cream-75, rgba(245, 240, 232, 0.75));
+}
+
+.receptionist-desk-btn--ghost:hover:not(:disabled) {
+  border-color: rgba(201, 169, 98, 0.35);
+}
+
+.receptionist-desk-recorded {
+  margin: 0;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  color: var(--mv-cream);
+  opacity: 0.9;
+}
+
+.receptionist-desk-kicker {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mv-gold);
+  margin-bottom: 0.12rem;
+}
+
+.receptionist-desk-checkout-hint {
+  margin: 0.25rem 0 0;
+  font-size: 0.62rem;
+  line-height: 1.4;
+  color: var(--mv-cream-55);
+  opacity: 0.95;
+}
+
+.receptionist-desk-checkout-hint strong {
+  color: var(--mv-cream);
+  font-weight: 600;
+}
+
+.receptionist-desk-warn {
+  margin: 0.35rem 0 0;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  color: #e8a598;
+}
+
+.receptionist-bookings-cancel-meta {
+  margin-top: 0.35rem;
+  max-width: min(22rem, 100%);
+  line-height: 1.35;
+}
+
+.receptionist-bookings-page .data-table th:nth-child(1),
+.receptionist-bookings-page .data-table td:nth-child(1) {
+  min-width: 12rem;
+  width: 18%;
+}
+
+.receptionist-bookings-page .data-table th:nth-child(3),
+.receptionist-bookings-page .data-table td:nth-child(3) {
+  min-width: 11rem;
+  width: 16%;
+}
+
+.receptionist-bookings-page .data-table th:nth-child(10),
+.receptionist-bookings-page .data-table td:nth-child(10) {
+  min-width: 10rem;
+  width: 14%;
+}
+
+.receptionist-bookings-cancel-reason {
+  margin: 0.45rem 0 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  color: var(--mv-cream);
+  opacity: 0.9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.receptionist-bookings-cancel-reason-label {
+  display: block;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mv-gold);
+  margin-bottom: 0.2rem;
+}
+
+.recv-booking-status {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+}
+
+.recv-booking-status--pending {
+  background: rgba(201, 169, 98, 0.2);
+  color: #e8d4a8;
+}
+
+.recv-booking-status--confirmed {
+  background: rgba(154, 184, 138, 0.22);
+  color: #c4e0b0;
+}
+
+.recv-booking-status--cancelled {
+  background: rgba(232, 165, 152, 0.15);
+  color: #e8a598;
+}

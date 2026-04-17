@@ -1,0 +1,126 @@
+.portal-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--mv-bg);
+  background-image: radial-gradient(ellipse at 50% 0%, var(--mv-hero-glow), transparent 55%);
+}
+
+.portal-login-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--mv-bg-elevated);
+  border: 1px solid var(--mv-cream-10);
+  border-radius: 8px;
+  padding: 2rem;
+  color: var(--mv-cream);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.portal-login-card h1 {
+  margin: 0 0 0.5rem;
+  font-family: var(--mv-font-serif);
+  font-weight: 400;
+  font-size: 1.75rem;
+}
+
+.portal-login-hint {
+  margin: 0 0 1.25rem;
+  font-size: 0.85rem;
+  color: var(--mv-cream-55);
+  line-height: 1.5;
+}
+
+.portal-login-label {
+  display: block;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mv-accent);
+  margin-bottom: 1rem;
+}
+
+.portal-login-input {
+  display: block;
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--mv-cream-12);
+  border-radius: 4px;
+  background: var(--mv-bg-raised);
+  color: var(--mv-cream);
+  font-size: 1rem;
+}
+
+.portal-login-input:focus {
+  outline: 2px solid rgba(139, 111, 94, 0.45);
+  border-color: var(--mv-accent);
+}
+
+.portal-login-error {
+  color: var(--mv-danger-soft);
+  font-size: 0.85rem;
+  margin: 0 0 1rem;
+}
+
+.portal-login-error--field {
+  margin: 0.35rem 0 0;
+}
+
+.portal-register-success-id {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  color: var(--mv-cream);
+}
+
+.portal-register-id-value {
+  color: var(--mv-gold, #c9a962);
+  font-weight: 600;
+  font-size: 1.35rem;
+  letter-spacing: 0.04em;
+}
+
+.portal-login-submit {
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem;
+  border: none;
+  border-radius: 4px;
+  background: var(--mv-cream);
+  color: var(--mv-charcoal);
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.portal-login-submit:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+.portal-login-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.portal-login-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  text-align: center;
+}
+
+.portal-login-links a {
+  font-size: 0.85rem;
+  color: var(--mv-cream-55);
+}
+
+.portal-login-links a:hover {
+  color: var(--mv-cream);
+}
