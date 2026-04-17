@@ -1,0 +1,17 @@
+# Node
+node_modules/
+.env
+dist/
+build/
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+venv/
+*.pkl
+ml-service/data/raw/
+
+# Logs
+*.log
+npm-debug.log*
