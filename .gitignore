@@ -15,3 +15,11 @@ ml-service/data/raw/
 # Logs
 *.log
 npm-debug.log*
+
+# Project runtime/generated files
+backend/node_modules/
+frontend/node_modules/
+frontend/dist/
+backend/uploads/**
+!backend/uploads/.gitkeep
+*.zip

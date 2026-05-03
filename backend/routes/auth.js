@@ -2,6 +2,7 @@ import { Router } from "express";
 import bcrypt from "bcryptjs";
 import AdminAccount from "../models/AdminAccount.js";
 import { requireAdmin, signAdminToken } from "../middleware/auth.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
 
@@ -18,7 +19,7 @@ router.post("/login", async (req, res) => {
     }
     res.json({ token: signAdminToken(admin), username: admin.username });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -40,7 +41,7 @@ router.post("/change-password", requireAdmin, async (req, res) => {
     await admin.save();
     res.json({ ok: true });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

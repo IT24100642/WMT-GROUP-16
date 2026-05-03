@@ -4,6 +4,7 @@ import Staff from "../models/Staff.js";
 import ShiftSchedule from "../models/ShiftSchedule.js";
 import Notification from "../models/Notification.js";
 import { requireStaff, signStaffToken } from "../middleware/auth.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
 
@@ -25,7 +26,7 @@ router.post("/login", async (req, res) => {
       roleName: staff.role?.name || "",
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -38,7 +39,7 @@ router.get("/me", requireStaff, async (req, res) => {
     delete staff.passwordHash;
     res.json(staff);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -49,7 +50,7 @@ router.get("/my-shifts", requireStaff, async (req, res) => {
       .lean();
     res.json(shifts);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -71,7 +72,7 @@ router.post("/change-password", requireStaff, async (req, res) => {
     await staff.save();
     res.json({ ok: true });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -83,7 +84,7 @@ router.get("/notifications", requireStaff, async (req, res) => {
       .lean();
     res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

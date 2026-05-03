@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import FoodItem from "../models/FoodItem.js";
 import FoodOrder, { FOOD_PAYMENT_METHODS, FOOD_SETTLEMENT_METHODS } from "../models/FoodOrder.js";
 import { requireCustomer } from "../middleware/auth.js";
+import { customerHasInStayBooking } from "../lib/customerActiveStay.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
 
@@ -14,7 +16,7 @@ router.get("/food-orders", requireCustomer, async (req, res) => {
       .lean();
     res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -24,6 +26,16 @@ router.post("/food-orders", requireCustomer, async (req, res) => {
     const paymentMethod = String(req.body?.paymentMethod ?? "").trim();
     if (!FOOD_PAYMENT_METHODS.includes(paymentMethod)) {
       return res.status(400).json({ error: "Choose how you will pay: room_bill, online, or cash" });
+    }
+    // Only room-bill charges require an active in-stay booking.
+    if (paymentMethod === "room_bill") {
+      const inStay = await customerHasInStayBooking(req.customer.id);
+      if (!inStay) {
+        return res.status(403).json({
+          error:
+            "Room-bill food ordering is available only after reception records your check-in, during your stay dates. Choose cash/online or order after check-in.",
+        });
+      }
     }
     if (!Array.isArray(rawLines) || rawLines.length === 0) {
       return res.status(400).json({ error: "Add at least one item to your order" });
@@ -72,7 +84,7 @@ router.post("/food-orders", requireCustomer, async (req, res) => {
     const populated = await FoodOrder.findById(doc._id).populate("lines.foodItem", "name").lean();
     res.status(201).json(populated);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -98,7 +110,7 @@ router.post("/food-orders/settle-room-bills", requireCustomer, async (req, res) 
       .lean();
     res.json({ modifiedCount: result.modifiedCount, orders: list });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

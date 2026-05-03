@@ -5,6 +5,7 @@ import IssueReport, { ISSUE_STATUSES } from "../models/IssueReport.js";
 import Staff from "../models/Staff.js";
 import Notification from "../models/Notification.js";
 import { notifyCustomer, notifyStaff } from "../services/notifications.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
 router.use(requireAdmin);
@@ -30,7 +31,7 @@ router.get("/issues", async (_req, res) => {
       })),
     });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -91,7 +92,7 @@ router.patch("/issues/:id", async (req, res) => {
       .lean();
     res.json(populated);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -103,7 +104,7 @@ router.get("/notifications", async (_req, res) => {
       .lean();
     res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

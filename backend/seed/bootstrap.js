@@ -5,13 +5,10 @@ import Staff from "../models/Staff.js";
 import FoodItem from "../models/FoodItem.js";
 import FoodMenuCategory from "../models/FoodMenuCategory.js";
 import Review from "../models/Review.js";
-import { ensureFixedRooms } from "./fixedRooms.js";
+import { ensureFixedRooms, FIXED_ROOM_COUNT } from "./fixedRooms.js";
 
 async function migrateReviewCategoriesToAiml() {
-  const r = await Review.updateMany({ category: "cleanliness" }, { $set: { category: "other" } });
-  if (r.modifiedCount > 0) {
-    console.log(`Reviews: migrated ${r.modifiedCount} from cleanliness → other (AIML categories).`);
-  }
+  // (Removed) Legacy AIML migration: we no longer repurpose guest reviews into "cleanliness".
 }
 
 async function ensureFoodMenuCategoriesAndSampleItems() {
@@ -79,6 +76,18 @@ async function ensureFoodMenuCategoriesAndSampleItems() {
   }
 }
 
+/**
+ * Canonical manager roles (must match `backend/middleware/auth.js` and mobile routing).
+ * Ensured on every bootstrap so DB always has these Role documents.
+ */
+const CORE_MANAGER_ROLES = [
+  { name: "Room Manager", description: "Rooms, housekeeping coordination" },
+  { name: "Kitchen Manager", description: "Restaurant & kitchen operations" },
+  { name: "Review Manager", description: "Guest feedback & reviews" },
+  { name: "Customer Manager", description: "Guest relations & loyalty" },
+  { name: "Receptionist", description: "Front desk & guest services" },
+];
+
 const PORTAL_TEAM = [
   {
     username: "room_manager",
@@ -117,6 +126,17 @@ const PORTAL_TEAM = [
   },
 ];
 
+async function ensureCoreManagerRoles() {
+  for (const r of CORE_MANAGER_ROLES) {
+    await Role.findOneAndUpdate(
+      { name: r.name },
+      { $set: { name: r.name, description: r.description } },
+      { upsert: true }
+    );
+  }
+  console.log("Core roles ensured: Room, Kitchen, Review, Customer Manager, Receptionist.");
+}
+
 export async function bootstrapData() {
   const admins = await AdminAccount.countDocuments();
   if (admins === 0) {
@@ -126,6 +146,8 @@ export async function bootstrapData() {
     });
     console.log("Admin login: admin / admin123");
   }
+
+  await ensureCoreManagerRoles();
 
   const roleByName = new Map();
   for (const t of PORTAL_TEAM) {
@@ -137,24 +159,32 @@ export async function bootstrapData() {
   }
 
   for (const t of PORTAL_TEAM) {
-    const exists = await Staff.findOne({ username: t.username });
-    if (exists) {
-      continue;
-    }
     const role = roleByName.get(t.roleName);
+    if (!role) continue;
     const passwordHash = await bcrypt.hash(t.password, 10);
-    await Staff.create({
-      name: t.name,
-      username: t.username,
-      passwordHash,
-      role: role._id,
-      active: true,
-    });
-    console.log(`Staff portal: ${t.username} / ${t.password}`);
+    const existed = await Staff.exists({ username: t.username });
+    await Staff.findOneAndUpdate(
+      { username: t.username },
+      {
+        $set: {
+          name: t.name,
+          username: t.username,
+          passwordHash,
+          role: role._id,
+          active: true,
+        },
+      },
+      { upsert: true }
+    );
+    if (!existed) {
+      console.log(`Staff portal (new): ${t.username} / ${t.password}`);
+    } else {
+      console.log(`Staff portal (synced): ${t.username}`);
+    }
   }
 
   await ensureFixedRooms();
-  console.log("Fixed inventory: rooms 1–50 (5 variants) ensured.");
+  console.log(`Fixed inventory: rooms 1–${FIXED_ROOM_COUNT} (5 variants) ensured.`);
 
   await ensureFoodMenuCategoriesAndSampleItems();
 

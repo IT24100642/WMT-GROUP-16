@@ -1,6 +1,7 @@
 import { Router } from "express";
 import FoodItem from "../models/FoodItem.js";
 import FoodMenuCategory from "../models/FoodMenuCategory.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
 
@@ -20,7 +21,7 @@ router.get("/food-items", async (_req, res) => {
     });
     res.json(visible);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -29,7 +30,7 @@ router.get("/food-categories", async (_req, res) => {
     const list = await FoodMenuCategory.find({ active: true }).sort({ sortOrder: 1, name: 1 }).lean();
     res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

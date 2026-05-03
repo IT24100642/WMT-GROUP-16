@@ -1,9 +1,18 @@
 import mongoose from "mongoose";
 
+const offerPhotoSchema = new mongoose.Schema(
+  {
+    url: { type: String, required: true, trim: true },
+    originalName: { type: String, default: "", trim: true },
+  },
+  { timestamps: true }
+);
+
 const offerSchema = new mongoose.Schema(
   {
     title: { type: String, required: true, trim: true },
     description: { type: String, default: "", trim: true },
+    photos: { type: [offerPhotoSchema], default: [] },
     rooms: {
       type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Room" }],
       validate: {

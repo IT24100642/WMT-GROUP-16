@@ -48,6 +48,15 @@ const bookingSchema = new mongoose.Schema(
     cancellationRefundLkr: { type: Number, default: null, min: 0 },
     /** Guest explanation when cancelling (staff-visible) */
     cancellationReason: { type: String, default: "", trim: true, maxLength: 2000 },
+    /** Guest asks to cancel; reception approves (refund) or rejects */
+    cancellationRequestStatus: {
+      type: String,
+      enum: ["none", "pending", "approved", "rejected"],
+      default: "none",
+    },
+    cancellationRequestedAt: { type: Date, default: null },
+    cancellationReviewedAt: { type: Date, default: null },
+    cancellationRejectionNote: { type: String, default: "", trim: true, maxLength: 500 },
     /** Receptionist: actual guest arrival at desk */
     checkedInAt: { type: Date, default: null },
     /** Receptionist: actual guest departure at desk */

@@ -4,6 +4,12 @@ const maintenanceSchema = new mongoose.Schema(
   {
     room: { type: mongoose.Schema.Types.ObjectId, ref: "Room", required: true },
     assignedStaff: { type: mongoose.Schema.Types.ObjectId, ref: "Staff", default: null },
+    assignedRole: {
+      type: String,
+      enum: ["plumber", "room_helper", "electrician", ""],
+      default: "",
+      trim: true,
+    },
     title: { type: String, required: true, trim: true },
     notes: { type: String, default: "", trim: true },
     status: {

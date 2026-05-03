@@ -5,8 +5,13 @@ import Booking from "../models/Booking.js";
 import IssueReport, { ISSUE_PRIORITIES, ISSUE_TYPES } from "../models/IssueReport.js";
 import Notification from "../models/Notification.js";
 import { notifyAdmin, notifyCustomer, notifyMaintenanceStaff } from "../services/notifications.js";
+import { bookingQualifiesForInStayFeatures } from "../lib/customerActiveStay.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
+
+const ISSUE_STAY_MSG =
+  "Issues can only be reported after reception has checked you in, for that stay (through check-out dates).";
 
 router.get("/issue-reports", requireCustomer, async (req, res) => {
   try {
@@ -17,7 +22,7 @@ router.get("/issue-reports", requireCustomer, async (req, res) => {
       .lean();
     res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -29,7 +34,7 @@ router.get("/notifications", requireCustomer, async (req, res) => {
       .lean();
     res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -46,6 +51,9 @@ router.post("/issue-reports", requireCustomer, async (req, res) => {
 
     const booking = await Booking.findOne({ _id: bookingId, customer: req.customer.id }).populate("room", "roomNumber");
     if (!booking) return res.status(404).json({ error: "Booking not found" });
+    if (!bookingQualifiesForInStayFeatures(booking)) {
+      return res.status(403).json({ error: ISSUE_STAY_MSG });
+    }
     if (!booking.room) return res.status(400).json({ error: "This booking has no assigned room" });
     if (booking.status === "cancelled") return res.status(400).json({ error: "Cannot report issues for cancelled bookings" });
 
@@ -82,7 +90,7 @@ router.post("/issue-reports", requireCustomer, async (req, res) => {
       .lean();
     res.status(201).json(populated);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

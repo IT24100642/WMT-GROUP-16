@@ -1,6 +1,7 @@
 import { Router } from "express";
 import ShiftSchedule from "../models/ShiftSchedule.js";
 import { requireAdmin } from "../middleware/auth.js";
+import { serverError } from "../lib/respond.js";
 
 const router = Router();
 router.use(requireAdmin);
@@ -10,7 +11,7 @@ router.get("/", async (_req, res) => {
     const shifts = await ShiftSchedule.find().populate("staff").sort({ startAt: -1 });
     res.json(shifts);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -35,7 +36,7 @@ router.post("/", async (req, res) => {
     await shift.populate("staff");
     res.status(201).json(shift);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -60,7 +61,7 @@ router.patch("/:id", async (req, res) => {
     }
     res.json(shift);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
@@ -72,7 +73,7 @@ router.delete("/:id", async (req, res) => {
     }
     res.json({ ok: true });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 

@@ -1,5 +1,8 @@
 import { Router } from "express";
+import mongoose from "mongoose";
 import Review, { REVIEW_CATEGORIES } from "../models/Review.js";
+import { serverError } from "../lib/respond.js";
+import { listPublicReviews } from "../lib/inMemoryReviews.js";
 
 const router = Router();
 
@@ -14,10 +17,13 @@ router.get("/reviews", async (req, res) => {
       }
       filter.category = category;
     }
+    if (mongoose.connection.readyState !== 1) {
+      return res.json(listPublicReviews({ category, limit }));
+    }
     const list = await Review.find(filter).sort({ createdAt: -1 }).limit(limit).lean();
-    res.json(list);
+    return res.json(list);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    serverError(res, err);
   }
 });
 
