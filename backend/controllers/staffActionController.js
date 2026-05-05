@@ -32,6 +32,25 @@ exports.addRoomPhoto = async (req, res) => {
   } catch (error) { res.status(500).json({ error: 'Server error' }); }
 };
 
+exports.uploadRoomPhoto = async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+    const room = await Room.findById(req.params.id);
+    if (!room) return res.status(404).json({ error: 'Room not found' });
+    
+    // Create the URL path (e.g. /uploads/room-123.jpg)
+    const photoUrl = `/uploads/${req.file.filename}`;
+    room.photos.push(photoUrl);
+    await room.save();
+    
+    res.status(200).json(room);
+  } catch (error) {
+    res.status(500).json({ error: 'Server error' });
+  }
+};
+
 exports.updateRoom = async (req, res) => {
   try {
     const room = await Room.findByIdAndUpdate(req.params.id, req.body, {

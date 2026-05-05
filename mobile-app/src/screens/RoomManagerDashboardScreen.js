@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { ActivityIndicator, Alert, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import api from '../api/axios';
 import { useStaffAuth } from '../context/StaffAuthContext';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function RoomManagerDashboardScreen() {
   const { profile, logout } = useStaffAuth();
@@ -153,21 +154,46 @@ export default function RoomManagerDashboardScreen() {
     }
   };
 
-  const addRoomPhotoByUrl = async () => {
+  const pickAndUploadRoomPhoto = async () => {
     if (!selectedRoomId) return;
     try {
-      if (!newPhotoUrl.trim()) {
-        Alert.alert('Error', 'Photo URL is required');
-        return;
-      }
-      await api.post(`/staff-portal/rooms/${selectedRoomId}/photos-by-url`, {
-        url: newPhotoUrl.trim(),
+      // 1. Ask for permission and pick image
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        quality: 0.7,
       });
-      setNewPhotoUrl('');
+
+      if (result.canceled) return;
+      
+      const asset = result.assets[0];
+      if (!asset) return;
+
+      // 2. Wrap it in FormData
+      const formData = new FormData();
+      // For React Native FormData, the file object needs uri, name, and type
+      const filename = asset.uri.split('/').pop() || 'photo.jpg';
+      
+      // We must cast this to 'any' conceptually, but in JS it's fine.
+      formData.append('photo', {
+        uri: asset.uri,
+        name: filename,
+        type: 'image/jpeg',
+      });
+
+      // 3. Upload
+      await api.post(`/staff-portal/rooms/${selectedRoomId}/photos`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      
+      Alert.alert('Success', 'Photo uploaded successfully!');
       loadDetail(selectedRoomId);
       loadAll();
     } catch (error) {
-      Alert.alert('Error', error?.response?.data?.error || 'Could not add room photo');
+      console.log('Upload error', error);
+      Alert.alert('Error', error?.response?.data?.error || 'Could not upload photo');
     }
   };
 
@@ -294,14 +320,8 @@ export default function RoomManagerDashboardScreen() {
             <TouchableOpacity style={styles.btn} onPress={updateSelectedRoom}><Text style={styles.btnText}>Update Room</Text></TouchableOpacity>
           </View>
           <Text style={styles.subHeader}>Room Photos</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Add photo URL (https://...)"
-            value={newPhotoUrl}
-            onChangeText={setNewPhotoUrl}
-          />
-          <TouchableOpacity style={styles.btn} onPress={addRoomPhotoByUrl}>
-            <Text style={styles.btnText}>Add Photo URL</Text>
+          <TouchableOpacity style={styles.btn} onPress={pickAndUploadRoomPhoto}>
+            <Text style={styles.btnText}>Upload Photo from Device</Text>
           </TouchableOpacity>
           {(detail?.photos || []).map((p) => (
             <Text key={p._id} style={styles.itemSub}>- {p.url}</Text>

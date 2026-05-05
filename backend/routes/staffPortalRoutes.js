@@ -8,7 +8,7 @@ router.post('/login', loginStaff);
 router.get('/me', protect, authorize('staff'), getMe);
 
 const {
-  getRooms, getRoom, addRoomPhoto, updateRoom,
+  getRooms, getRoom, addRoomPhoto, uploadRoomPhoto, updateRoom,
   getOffers, createOffer, updateOffer, deleteOffer,
   getReviews, getReviewAnalytics, updateReview, deleteReview,
   getBookings, rejectCancellation, approveCancellation,
@@ -16,11 +16,26 @@ const {
   getCustomers, getCustomerDetails, updateCustomer, addLoyaltyPoints, deletePreferences, deleteCustomer
 } = require('../controllers/staffActionController');
 
-// Staff Actions (assuming any staff can access these for now, or you could add specific roleName checks)
+const multer = require('multer');
+const path = require('path');
+
+// Configure multer storage
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `room-${Date.now()}${path.extname(file.originalname)}`);
+  }
+});
+const upload = multer({ storage });
+
+// Rooms
 router.get('/rooms', protect, authorize('staff', 'admin'), getRooms);
 router.get('/rooms/:id', protect, authorize('staff', 'admin'), getRoom);
 router.patch('/rooms/:id', protect, authorize('staff', 'admin'), updateRoom);
 router.post('/rooms/:id/photos-by-url', protect, authorize('staff', 'admin'), addRoomPhoto);
+router.post('/rooms/:id/photos', protect, authorize('staff', 'admin'), upload.single('photo'), uploadRoomPhoto);
 
 router.get('/offers', protect, authorize('staff', 'admin'), getOffers);
 router.post('/offers', protect, authorize('staff', 'admin'), createOffer);

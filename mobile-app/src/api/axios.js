@@ -32,7 +32,7 @@ function resolveBaseUrl() {
   return `http://192.168.1.3:${port}/api`;
 }
 
-const BASE_URL = 'http://192.168.8.158:5004/api';
+const BASE_URL = resolveBaseUrl();
 
 if (__DEV__) {
   console.log(`[api] baseURL = ${BASE_URL}`);

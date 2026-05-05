@@ -23,6 +23,10 @@ if (process.env.NODE_ENV === 'development' || true) {
   app.use(morgan('dev'));
 }
 
+const path = require('path');
+// Serve uploads statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Mount routers
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/staff-portal', require('./routes/staffPortalRoutes'));
@@ -36,6 +40,6 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, '192.168.8.158', () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server running on port ${PORT}`);
 });
